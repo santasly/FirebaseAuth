@@ -3,6 +3,7 @@ package com.example.firebaseauth.data
 import android.content.Context
 import android.widget.Toast
 import androidx.navigation.NavHostController
+import com.example.firebaseauth.navigation.ROUTE_HOME
 import com.example.firebaseauth.navigation.ROUTE_LOGIN
 import com.example.firebaseauth.navigation.ROUTE_REGISTER
 import com.google.firebase.auth.FirebaseAuth
@@ -24,9 +25,11 @@ class AUthViewModel(var navController: NavHostController, var context:Context){
             mAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener{
                 if(it.isSuccessful){
                     Toast.makeText(context,"Register Successfully",Toast.LENGTH_LONG).show()
+                    navController.navigate(ROUTE_HOME)
 
                 }else{
                     Toast.makeText(context,"${it.exception!!.message}",Toast.LENGTH_LONG).show()
+                    navController.navigate(ROUTE_LOGIN)
                 }
             }
         }
@@ -41,6 +44,7 @@ class AUthViewModel(var navController: NavHostController, var context:Context){
 
             }else{
                 Toast.makeText(context,"${it.exception!!.message}",Toast.LENGTH_LONG).show()
+                navController.navigate(ROUTE_LOGIN)
             }
         }
 
